@@ -7,6 +7,6 @@ import org.grails.onezeroone.SubscriptionDay
 @CompileStatic
 @Service(CourseSubscriberGormEntity)
 interface  CourseSubscriberDataService {
-    void save(String email, SubscriptionDay day)
+    CourseSubscriberGormEntity save(String email, SubscriptionDay day)
     List<CourseSubscriberGormEntity> findAllByDay(SubscriptionDay day)
 }
