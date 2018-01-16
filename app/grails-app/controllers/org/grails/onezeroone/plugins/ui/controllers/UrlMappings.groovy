@@ -3,8 +3,9 @@ package org.grails.onezeroone.plugins.ui.controllers
 class UrlMappings {
 
     static mappings = {
-        "/"(view: '/index')
-        "500"(view:'/error')
-        "404"(view:'/notFound')
+        name home: "/"(view: '/index')
+
+        name e500: "500"(view:'/error')
+        name e404: "404"(view:'/notFound')
     }
 }

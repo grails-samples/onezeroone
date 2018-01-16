@@ -131,3 +131,8 @@ environments:
                 testWhileIdle: true
                 testOnReturn: false
                 jdbcInterceptors: ConnectionState
+---
+onezeroone:
+  email:
+    from: '${EMAIL_FROM}'
+    replyTo: '${EMAIL_REPLY_TO}'
