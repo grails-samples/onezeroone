@@ -1,26 +1,29 @@
-package org.grails.onezeroone
+package org.grails.onezeroone.usecase
 
 import groovy.transform.CompileStatic
+import org.grails.onezeroone.CourseSubscriber
+import org.grails.onezeroone.CourseSubscriberRepository
+import org.grails.onezeroone.Email
+import org.grails.onezeroone.EmailComposer
+import org.grails.onezeroone.EmailService
+import org.grails.onezeroone.SubscriptionDay
 
 @CompileStatic
-class DailyEmailService {
+class DailyEmailUseCaseService {
 
     CourseSubscriberRepository courseSubscriberRepository
     EmailComposer emailComposer
     EmailService emailService
 
     void sendEmail() {
-        for ( SubscriptionDay day : SubscriptionDay.values() ) {
-            if ( day != SubscriptionDay.FINISHED ) {
-                Email email = emailComposer.compose(day)
+        for (SubscriptionDay day : SubscriptionDay.values()) {
+            if (!SubscriptionDay.hasFinished(day)) {
                 List<CourseSubscriber> subscribers = courseSubscriberRepository.findAllByDay(day)
+                Email email = emailComposer.compose(day)
+
                 emailService.send(subscribers, email)
-                courseSubscriberRepository.moveToDay(subscribers, nextDay(day))
+                courseSubscriberRepository.moveToDay(subscribers, SubscriptionDay.nextDay(day))
             }
         }
-    }
-
-    SubscriptionDay nextDay(SubscriptionDay day ){
-
     }
 }

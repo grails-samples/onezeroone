@@ -2,13 +2,14 @@ package org.grails.onezeroone
 
 
 import groovy.transform.CompileStatic
+import org.grails.onezeroone.usecase.DailyEmailUseCaseService
 
 @CompileStatic
 class DailyJobService {
 
-    DailyEmailService dailyEmailService
+    DailyEmailUseCaseService dailyEmailUseCaseService
 
     def cron() {
-        dailyEmailService.sendEmail()
+        dailyEmailUseCaseService.sendEmail()
     }
 }
