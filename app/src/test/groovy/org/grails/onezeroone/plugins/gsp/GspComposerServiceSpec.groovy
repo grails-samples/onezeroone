@@ -18,32 +18,32 @@ class GspComposerServiceSpec extends Specification implements ServiceUnitTest<Gs
 
     void 'compose an email for one specific day'() {
         given: 'mocks for collaborators'
-            service.grailsLinkGenerator = Stub(LinkGenerator) {
-                link(_) >> url
-            }
-            service.messageSource = Stub(MessageSource) {
-                getMessage(*_) >> subject
-            }
-            service.groovyPageRenderer = Stub(PageRenderer) {
-                render([
+        service.grailsLinkGenerator = Stub(LinkGenerator) {
+            link(_) >> url
+        }
+        service.messageSource = Stub(MessageSource) {
+            getMessage(*_) >> subject
+        }
+        service.groovyPageRenderer = Stub(PageRenderer) {
+            render([
                     view: '/emails/dayfive',
                     model: [url: url]
-                ]) >> body
-            }
+            ]) >> body
+        }
 
         when: 'trying to render one day email'
-            def email = service.compose(SubscriptionDay.FIVE)
+        def email = service.compose(SubscriptionDay.FIVE)
 
         then: 'the email is rendered correctly'
-            email != null
-            email.subject == subject
-            email.body == body
-            email.from == 'EMAIL_FROM'
-            email.replyTo == 'EMAIL_REPLY_TO'
+        email != null
+        email.subject == subject
+        email.body == body
+        email.from == 'EMAIL_FROM'
+        email.replyTo == 'EMAIL_REPLY_TO'
 
         where:
-            url = 'http://my-domain.com/'
-            subject = 'The subject'
-            body = 'The email body'
+        url = 'http://my-domain.com/'
+        subject = 'The subject'
+        body = 'The email body'
     }
 }

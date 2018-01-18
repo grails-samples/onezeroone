@@ -12,20 +12,20 @@ class GmailServiceSpec extends Specification implements ServiceUnitTest<GmailSer
 
     void 'send an email to a list of subscribers'() {
         given: 'a list of courseSubscribers'
-            def courseSubscriber1 = new CourseSubscriberImpl(email: 'user1@example.com', subscriptionDay: SubscriptionDay.FOUR)
-            def courseSubscriber2 = new CourseSubscriberImpl(email: 'user2@example.com', subscriptionDay: SubscriptionDay.FOUR)
-            def courseSubscriber3 = new CourseSubscriberImpl(email: 'user3@example.com', subscriptionDay: SubscriptionDay.FOUR)
+        def courseSubscriber1 = new CourseSubscriberImpl(email: 'user1@example.com', subscriptionDay: SubscriptionDay.FOUR)
+        def courseSubscriber2 = new CourseSubscriberImpl(email: 'user2@example.com', subscriptionDay: SubscriptionDay.FOUR)
+        def courseSubscriber3 = new CourseSubscriberImpl(email: 'user3@example.com', subscriptionDay: SubscriptionDay.FOUR)
 
         and: 'a mock for the emailService'
-            service.mailService = Mock(MailService)
+        service.mailService = Mock(MailService)
 
         and: 'an email to send'
-            Email email = new EmailImpl()
+        Email email = new EmailImpl()
 
         when: 'sending the email to the users'
-            service.send([courseSubscriber1, courseSubscriber2, courseSubscriber3], email)
+        service.send([courseSubscriber1, courseSubscriber2, courseSubscriber3], email)
 
         then:
-            3 * service.mailService.sendMail(_)
+        3 * service.mailService.sendMail(_)
     }
 }

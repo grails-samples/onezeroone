@@ -11,19 +11,19 @@ class DailyEmailUseCaseServiceSpec extends Specification implements ServiceUnitT
 
     void 'test the daily send email'() {
         given: 'mocked collaborators'
-            service.emailComposer = Stub(EmailComposer) {
-                compose(_) >> new EmailImpl()
-            }
-            service.courseSubscriberRepository = Mock(CourseSubscriberRepository) {
-                findAllByDay(_) >> []
-            }
-            service.emailService = Mock(EmailService)
+        service.emailComposer = Stub(EmailComposer) {
+            compose(_) >> new EmailImpl()
+        }
+        service.courseSubscriberRepository = Mock(CourseSubscriberRepository) {
+            findAllByDay(_) >> []
+        }
+        service.emailService = Mock(EmailService)
 
         when: 'executing the service to send the emails'
-            service.sendEmail()
+        service.sendEmail()
 
         then:
-            7 * service.emailService.send(*_)
-            7 * service.courseSubscriberRepository.moveToDay(*_)
+        7 * service.emailService.send(*_)
+        7 * service.courseSubscriberRepository.moveToDay(*_)
     }
 }
