@@ -74,9 +74,9 @@ class CourseSubscriberGormServiceIntegrationSpec extends Specification {
         courseSubscriberGormService.save(courseSubscriber)
 
         then: 'it is persisted'
-        courseSubscriberGormService.findAllByDay(SubscriptionDay.FIVE).size() == 1
-        courseSubscriberGormService.findAllByDay(SubscriptionDay.FIVE).first().email == email
-        courseSubscriberGormService.findAllByDay(SubscriptionDay.FIVE).first().subscriptionDay == subscriptionDay
+        courseSubscriberGormService.findAllByDay(subscriptionDay).size() == old(courseSubscriberGormService.findAllByDay(subscriptionDay)).size() + 1
+        courseSubscriberGormService.findAllByDay(subscriptionDay).first().email == email
+        courseSubscriberGormService.findAllByDay(subscriptionDay).first().subscriptionDay == subscriptionDay
 
         where:
         email = 'user1@example.com'
