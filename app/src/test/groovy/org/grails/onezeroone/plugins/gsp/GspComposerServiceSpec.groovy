@@ -18,7 +18,7 @@ class GspComposerServiceSpec extends Specification implements ServiceUnitTest<Gs
 
     void 'compose an email for one specific day'() {
         given: 'mocks for collaborators'
-            service.linkGenerator = Stub(LinkGenerator) {
+            service.grailsLinkGenerator = Stub(LinkGenerator) {
                 link(_) >> url
             }
             service.messageSource = Stub(MessageSource) {
