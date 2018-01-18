@@ -14,7 +14,7 @@ import org.springframework.context.MessageSource
 @CompileStatic
 class GspComposerService implements EmailComposer, GrailsConfigurationAware {
 
-    LinkGenerator linkGenerator
+    LinkGenerator grailsLinkGenerator
     PageRenderer groovyPageRenderer
     MessageSource messageSource
 
@@ -23,7 +23,7 @@ class GspComposerService implements EmailComposer, GrailsConfigurationAware {
 
     @Override
     Email compose(SubscriptionDay day) {
-        String url = linkGenerator.link(mapping: 'home', absolute: true)
+        String url = grailsLinkGenerator.link(mapping: 'home', absolute: true)
 
         String subject = messageSource.getMessage("onezeroone.email.subject.${day.toString().toLowerCase()}",
                                                   [] as Object[],
