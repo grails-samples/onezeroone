@@ -11,5 +11,10 @@ beans = {
     emailService(GmailService) {
         mailService = ref('mailService')
     }
-    emailComposer(GspComposerService)
+
+    emailComposer(GspComposerService) {
+        grailsLinkGenerator = ref('grailsLinkGenerator')
+        groovyPageRenderer = ref('groovyPageRenderer')
+        messageSource = ref('messageSource')
+    }
 }
