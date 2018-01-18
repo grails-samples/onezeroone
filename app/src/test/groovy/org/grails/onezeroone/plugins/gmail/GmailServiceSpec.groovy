@@ -2,6 +2,7 @@ package org.grails.onezeroone.plugins.gmail
 
 import grails.plugins.mail.MailService
 import grails.testing.services.ServiceUnitTest
+import org.grails.onezeroone.CourseSubscriber
 import org.grails.onezeroone.Email
 import org.grails.onezeroone.EmailImpl
 import org.grails.onezeroone.SubscriptionDay
@@ -12,9 +13,11 @@ class GmailServiceSpec extends Specification implements ServiceUnitTest<GmailSer
 
     void 'send an email to a list of subscribers'() {
         given: 'a list of courseSubscribers'
-        def courseSubscriber1 = new CourseSubscriberImpl(email: 'user1@example.com', subscriptionDay: SubscriptionDay.FOUR)
-        def courseSubscriber2 = new CourseSubscriberImpl(email: 'user2@example.com', subscriptionDay: SubscriptionDay.FOUR)
-        def courseSubscriber3 = new CourseSubscriberImpl(email: 'user3@example.com', subscriptionDay: SubscriptionDay.FOUR)
+        List<CourseSubscriber> subscriberList = [
+                new CourseSubscriberImpl(email: 'user1@example.com', subscriptionDay: SubscriptionDay.FOUR),
+                new CourseSubscriberImpl(email: 'user2@example.com', subscriptionDay: SubscriptionDay.FOUR),
+                new CourseSubscriberImpl(email: 'user3@example.com', subscriptionDay: SubscriptionDay.FOUR),
+        ]
 
         and: 'a mock for the emailService'
         service.mailService = Mock(MailService)
@@ -23,9 +26,9 @@ class GmailServiceSpec extends Specification implements ServiceUnitTest<GmailSer
         Email email = new EmailImpl()
 
         when: 'sending the email to the users'
-        service.send([courseSubscriber1, courseSubscriber2, courseSubscriber3], email)
+        service.send(subscriberList, email)
 
         then:
-        3 * service.mailService.sendMail(_)
+        subscriberList.size() * service.mailService.sendMail(_)
     }
 }

@@ -5,6 +5,7 @@ import org.grails.onezeroone.CourseSubscriberRepository
 import org.grails.onezeroone.EmailComposer
 import org.grails.onezeroone.EmailImpl
 import org.grails.onezeroone.EmailService
+import org.grails.onezeroone.SubscriptionDay
 import spock.lang.Specification
 
 class DailyEmailUseCaseServiceSpec extends Specification implements ServiceUnitTest<DailyEmailUseCaseService> {
@@ -18,12 +19,13 @@ class DailyEmailUseCaseServiceSpec extends Specification implements ServiceUnitT
             findAllByDay(_) >> []
         }
         service.emailService = Mock(EmailService)
+        int expectedIterations = SubscriptionDay.values().size() - 1 // Substract FINISHED
 
         when: 'executing the service to send the emails'
         service.sendEmail()
 
         then:
-        7 * service.emailService.send(*_)
-        7 * service.courseSubscriberRepository.moveToDay(*_)
+        expectedIterations * service.emailService.send(*_)
+        expectedIterations * service.courseSubscriberRepository.moveToDay(*_)
     }
 }
