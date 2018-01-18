@@ -13,8 +13,6 @@ beans = {
     }
 
     emailComposer(GspComposerService) {
-        grailsLinkGenerator = ref('grailsLinkGenerator')
         groovyPageRenderer = ref('groovyPageRenderer')
-        messageSource = ref('messageSource')
     }
 }

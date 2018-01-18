@@ -21,7 +21,7 @@ class DailyEmailUseCaseServiceSpec extends Specification implements ServiceUnitT
         service.emailService = Mock(EmailService)
         int expectedIterations = SubscriptionDay.values().size() - 1 // Substract FINISHED
 
-        when: 'executing the service to send the emails'
+        when: 'executing the service to send the templates'
         service.sendEmail()
 
         then:

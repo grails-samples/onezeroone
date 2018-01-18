@@ -4,8 +4,8 @@ class UrlMappings {
 
     static mappings = {
         name home: "/"(view: '/index')
-
-        name e500: "500"(view:'/error')
-        name e404: "404"(view:'/notFound')
+        "/subscribe"(controller: 'subscribe', action: 'subscribe')
+        "500"(view:'/error')
+        "404"(view:'/notFound')
     }
 }

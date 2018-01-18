@@ -1,4 +1,3 @@
-include 'entities'
 include 'app'
 include 'docs'
 rootProject.name = 'grails-onezeroone'

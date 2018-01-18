@@ -13,22 +13,17 @@ class GspComposerServiceSpec extends Specification implements ServiceUnitTest<Gs
         { config ->
             config.onezeroone.email.from = 'EMAIL_FROM'
             config.onezeroone.email.replyTo = 'EMAIL_REPLY_TO'
+            config.onezeroone.email.days = ['Day ONE', 'Day TWO', 'Day THREE', 'Day FOUR', 'Day FIVE', 'Day SIX', 'Day SEVEN']
+            config.onezeroone.email.titles = ['Grails 101 | Day ONE', 'Grails 101 | Day TWO', 'Grails 101 | Day THREE', 'Grails 101 | Day FOUR', 'Grails 101 | Day FIVE', 'Grails 101 | Day SIX', 'Grails 101 | Day SEVEN']
+            config.onezeroone.email.bodys = ['Body ONE', 'Body TWO', 'Body THREE', 'Body FOUR', 'Body FIVE', 'Body SIX', 'Body SEVEN']
+            config.onezeroone.email.bodys = ['http://guides.grails.org/dayone', 'http://guides.grails.org/daytwo', 'http://guides.grails.org/daythree', 'http://guides.grails.org/dayfour', 'http://guides.grails.org/dayfive', 'http://guides.grails.org/daysix', 'http://guides.grails.org/dayseven']
         }
     }
 
     void 'compose an email for one specific day'() {
         given: 'mocks for collaborators'
-        service.grailsLinkGenerator = Stub(LinkGenerator) {
-            link(_) >> url
-        }
-        service.messageSource = Stub(MessageSource) {
-            getMessage(*_) >> subject
-        }
         service.groovyPageRenderer = Stub(PageRenderer) {
-            render([
-                    view: '/emails/dayfive',
-                    model: [url: url]
-            ]) >> body
+            render(_) >> body
         }
 
         when: 'trying to render one day email'
@@ -42,8 +37,7 @@ class GspComposerServiceSpec extends Specification implements ServiceUnitTest<Gs
         email.replyTo == 'EMAIL_REPLY_TO'
 
         where:
-        url = 'http://my-domain.com/'
-        subject = 'The subject'
+        subject = 'Grails 101 | Day FIVE'
         body = 'The email body'
     }
 }

@@ -132,30 +132,62 @@ environments:
                 testOnReturn: false
                 jdbcInterceptors: ConnectionState
 ---
-onezeroone:
-  email:
-    from: '${EMAIL_FROM}'
-    replyTo: '${EMAIL_REPLY_TO}'
----
 grails:
-  mail:
-    host: 'smtp.gmail.com'
-    port: 465
-    username: '${GMAIL_EMAIL}'
-    password: '${GMAIL_PASSWORD}'
-    props:
-      mail.smtp.auth: "true"
-      mail.smtp.socketFactory.port: "465"
-      mail.smtp.socketFactory.class: "javax.net.ssl.SSLSocketFactory"
-      mail.smtp.socketFactory.fallback: "false"
+    mail:
+        host: 'smtp.gmail.com'
+        port: 465
+        username: '${GMAIL_EMAIL}'
+        password: '${GMAIL_PASSWORD}'
+        props:
+            mail.smtp.auth: "true"
+            mail.smtp.socketFactory.port: "465"
+            mail.smtp.socketFactory.class: "javax.net.ssl.SSLSocketFactory"
+            mail.smtp.socketFactory.fallback: "false"
 ---
 environments:
-  development:
-    grails:
-      serverURL: http://localhost:8080
-  test:
-    grails:
-      serverURL: http://localhost:8080
-  production:
-    grails:
-      serverURL: '${PRODUCTION_URL}'
+    development:
+        grails:
+        serverURL: http://localhost:8080
+    test:
+        grails:
+        serverURL: http://localhost:8080
+    production:
+        grails:
+        serverURL: '${PRODUCTION_URL}'
+---
+onezeroone:
+    email:
+        from: '${EMAIL_FROM}'
+        replyTo: '${EMAIL_REPLY_TO}'
+        days:
+            - Day ONE
+            - Day TWO
+            - Day THREE
+            - Day FOUR
+            - Day FIVE
+            - Day SIX
+            - Day SEVEN
+        titles:
+            - Grails 101 | Day ONE
+            - Grails 101 | Day TWO
+            - Grails 101 | Day THREE
+            - Grails 101 | Day FOUR
+            - Grails 101 | Day FIVE
+            - Grails 101 | Day SIX
+            - Grails 101 | Day SEVEN
+        bodys:
+            - We’re thrilled to have you as a student for the next 7 days as we walk you through the ins and outs of how to get started with Grails.
+            - We’re thrilled to have you as a student for the next 7 days as we walk you through the ins and outs of how to get started with Grails.
+            - We’re thrilled to have you as a student for the next 7 days as we walk you through the ins and outs of how to get started with Grails.
+            - We’re thrilled to have you as a student for the next 7 days as we walk you through the ins and outs of how to get started with Grails.
+            - We’re thrilled to have you as a student for the next 7 days as we walk you through the ins and outs of how to get started with Grails.
+            - We’re thrilled to have you as a student for the next 7 days as we walk you through the ins and outs of how to get started with Grails.
+            - We’re thrilled to have you as a student for the next 7 days as we walk you through the ins and outs of how to get started with Grails.
+        guides:
+            - http://guides.grails.org/dayone
+            - http://guides.grails.org/daytwo
+            - http://guides.grails.org/daythree
+            - http://guides.grails.org/dayfour
+            - http://guides.grails.org/dayfive
+            - http://guides.grails.org/daysix
+            - http://guides.grails.org/dayseven

@@ -69,8 +69,6 @@ dependencies {
     runtime "com.h2database:h2"
     runtime "org.apache.tomcat:tomcat-jdbc"
     runtime 'mysql:mysql-connector-java:5.1.40'
-
-    compile project(':entities')
 }
 
 bootRun {
