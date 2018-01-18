@@ -20,6 +20,12 @@ class GspComposerService implements EmailComposer, GrailsConfigurationAware {
 
     String from
     String replyTo
+    
+    @Override
+    void setConfiguration(Config co) {
+        from = co.getRequiredProperty('onezeroone.email.from', String)
+        replyTo = co.getRequiredProperty('onezeroone.email.replyTo', String)
+    }
 
     @Override
     Email compose(SubscriptionDay day) {
@@ -47,11 +53,5 @@ class GspComposerService implements EmailComposer, GrailsConfigurationAware {
 
     private String findSubscriptionDayTemplate(SubscriptionDay day) {
         "day${day.toString().toLowerCase()}"
-    }
-
-    @Override
-    void setConfiguration(Config co) {
-        from = co.getRequiredProperty('onezeroone.email.from', String)
-        replyTo = co.getRequiredProperty('onezeroone.email.replyTo', String)
     }
 }
