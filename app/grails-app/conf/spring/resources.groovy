@@ -8,6 +8,8 @@ beans = {
         courseSubscriberDataService = ref('courseSubscriberDataService')
     }
 
-    emailService(GmailService)
+    emailService(GmailService) {
+        mailService = ref('mailService')
+    }
     emailComposer(GspComposerService)
 }
