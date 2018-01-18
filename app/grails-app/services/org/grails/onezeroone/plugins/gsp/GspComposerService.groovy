@@ -43,7 +43,7 @@ class GspComposerService implements EmailComposer, GrailsConfigurationAware {
             ]
         )
 
-        return new EmailImpl(
+        new EmailImpl(
             subject: subject,
             body: emailBody,
             from: from,
