@@ -31,7 +31,7 @@ class GspComposerService implements EmailComposer, GrailsConfigurationAware {
     Email compose(SubscriptionDay day) {
         String url = grailsLinkGenerator.link(mapping: 'home', absolute: true)
 
-        String subject = messageSource.getMessage("onezeroone.email.subject.${day.toString().toLowerCase()}",
+        String subject = messageSource.getMessage("onezeroone.email.subject.day${day.toString().toLowerCase()}",
                                                   [] as Object[],
                                                   Locale.getDefault())
 
