@@ -11,6 +11,7 @@ class SubscribeControllerSpec extends Specification implements ControllerUnitTes
         params.email = 'not-valid'
 
         when: 'executing the controller'
+        request.method = 'POST'
         controller.subscribe()
 
         then:
@@ -25,6 +26,7 @@ class SubscribeControllerSpec extends Specification implements ControllerUnitTes
         controller.subscribeUseCaseService = Mock(SubscribeUseCaseService)
 
         when: 'executing the controller'
+        request.method = 'POST'
         controller.subscribe()
 
         then:
