@@ -131,3 +131,39 @@ environments:
                 testWhileIdle: true
                 testOnReturn: false
                 jdbcInterceptors: ConnectionState
+---
+onezeroone:
+    email:
+        days:
+            - Day ONE
+            - Day TWO
+            - Day THREE
+            - Day FOUR
+            - Day FIVE
+            - Day SIX
+            - Day SEVEN
+        titles:
+            - Grails 101 | Day ONE
+            - Grails 101 | Day TWO
+            - Grails 101 | Day THREE
+            - Grails 101 | Day FOUR
+            - Grails 101 | Day FIVE
+            - Grails 101 | Day SIX
+            - Grails 101 | Day SEVEN
+        bodys:
+            - We’re thrilled to have you as a student for the next 7 days as we walk you through the ins and outs of how to get started with Grails.
+            - We’re thrilled to have you as a student for the next 7 days as we walk you through the ins and outs of how to get started with Grails.
+            - We’re thrilled to have you as a student for the next 7 days as we walk you through the ins and outs of how to get started with Grails.
+            - We’re thrilled to have you as a student for the next 7 days as we walk you through the ins and outs of how to get started with Grails.
+            - We’re thrilled to have you as a student for the next 7 days as we walk you through the ins and outs of how to get started with Grails.
+            - We’re thrilled to have you as a student for the next 7 days as we walk you through the ins and outs of how to get started with Grails.
+            - We’re thrilled to have you as a student for the next 7 days as we walk you through the ins and outs of how to get started with Grails.
+        guides:
+            - http://guides.grails.org/dayone
+            - http://guides.grails.org/daytwo
+            - http://guides.grails.org/daythree
+            - http://guides.grails.org/dayfour
+            - http://guides.grails.org/dayfive
+            - http://guides.grails.org/daysix
+            - http://guides.grails.org/dayseven
+
