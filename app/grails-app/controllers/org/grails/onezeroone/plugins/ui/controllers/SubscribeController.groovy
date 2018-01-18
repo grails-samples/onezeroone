@@ -7,6 +7,8 @@ import org.grails.onezeroone.usecase.SubscribeUseCaseService
 class SubscribeController {
     static responseFormats = ['html']
 
+    static allowedMethods = [subscribe: 'POST']
+
     SubscribeUseCaseService subscribeUseCaseService
 
     def subscribe(SubscribeCommand cmd) {
