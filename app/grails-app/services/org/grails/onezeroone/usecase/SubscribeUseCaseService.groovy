@@ -11,13 +11,20 @@ import org.grails.onezeroone.entities.CourseSubscriberImpl
 class SubscribeUseCaseService {
     CourseSubscriberRepository courseSubscriberRepository
 
-    void subscribe(String email) {
+    /**
+     *
+     * @param email
+     * @return wether the subscription was successful or not
+     */
+    boolean subscribe(String email) {
         CourseSubscriber courseSubscriber = new CourseSubscriberImpl(email: email, subscriptionDay: SubscriptionDay.ONE)
 
         try {
             courseSubscriberRepository.save(courseSubscriber)
         } catch (ValidationException ve) {
             log.warn "There was an error saving the subscriber: ${ve.message}"
+            return false
         }
+        true
     }
 }

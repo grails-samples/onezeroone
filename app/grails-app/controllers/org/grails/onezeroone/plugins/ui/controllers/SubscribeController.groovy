@@ -18,8 +18,8 @@ class SubscribeController {
             return
         }
 
-        subscribeUseCaseService.subscribe(cmd.email)
+        boolean result = subscribeUseCaseService.subscribe(cmd.email)
 
-        render view: '/subscribe/subscriptionConfirmation'
+        render view: result ? '/subscribe/success' : '/subscribe/failure'
     }
 }
