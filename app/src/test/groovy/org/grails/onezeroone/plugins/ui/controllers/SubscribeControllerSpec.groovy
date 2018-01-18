@@ -8,31 +8,31 @@ class SubscribeControllerSpec extends Specification implements ControllerUnitTes
 
     void 'the params are not correct and the validation fails'() {
         given: 'an invalid email'
-            params.email = 'not-valid'
+        params.email = 'not-valid'
 
         when: 'executing the controller'
-            controller.subscribe()
+        controller.subscribe()
 
         then:
-            response.status == 302
+        response.status == 302
     }
 
     void 'the user subscribes to the course'() {
         given: 'a valid email'
-            params.email = email
+        params.email = email
 
         and: 'a mocked use case service'
-            controller.subscribeUseCaseService = Mock(SubscribeUseCaseService)
+        controller.subscribeUseCaseService = Mock(SubscribeUseCaseService)
 
         when: 'executing the controller'
-            controller.subscribe()
+        controller.subscribe()
 
         then:
-            response.status == 200
-            1 * controller.subscribeUseCaseService.subscribe(email)
-            view == '/subscribe/subscriptionConfirmation'
+        response.status == 200
+        1 * controller.subscribeUseCaseService.subscribe(email)
+        view == '/subscribe/subscriptionConfirmation'
 
         where:
-            email = 'john.doe@example.com'
+        email = 'john.doe@example.com'
     }
 }
