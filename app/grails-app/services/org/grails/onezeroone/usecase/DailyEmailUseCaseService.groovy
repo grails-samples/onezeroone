@@ -1,5 +1,6 @@
 package org.grails.onezeroone.usecase
 
+import grails.gorm.transactions.Transactional
 import groovy.transform.CompileStatic
 import org.grails.onezeroone.CourseSubscriber
 import org.grails.onezeroone.CourseSubscriberRepository
@@ -15,6 +16,7 @@ class DailyEmailUseCaseService {
     EmailComposer emailComposer
     EmailService emailService
 
+    @Transactional
     void sendEmail() {
         for (SubscriptionDay day : SubscriptionDay.values()) {
             if (!SubscriptionDay.hasFinished(day)) {
