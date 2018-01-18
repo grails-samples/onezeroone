@@ -7,18 +7,18 @@ class CourseSubscriberGormEntityUtilsSpec extends Specification {
 
     void 'convert a courseSubscriberGorm to a courseSubscriber entity'() {
         given: 'a courseSubscriberGorm'
-            def courseSubscriberGorm = new CourseSubscriberGormEntity(email: email, day: day)
+        def courseSubscriberGorm = new CourseSubscriberGormEntity(email: email, day: day)
 
         when: 'converting it to a courseSubscriber entity'
-            def courseSubscriber = CourseSubscriberGormEntityUtils.of(courseSubscriberGorm)
+        def courseSubscriber = CourseSubscriberGormEntityUtils.of(courseSubscriberGorm)
 
         then:
-            courseSubscriber != null
-            courseSubscriber.email == email
-            courseSubscriber.subscriptionDay == day
+        courseSubscriber != null
+        courseSubscriber.email == email
+        courseSubscriber.subscriptionDay == day
 
         where:
-            email = 'john@example.com'
-            day = SubscriptionDay.FOUR
+        email = 'john@example.com'
+        day = SubscriptionDay.FOUR
     }
 }
