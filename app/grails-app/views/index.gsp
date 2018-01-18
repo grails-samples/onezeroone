@@ -10,7 +10,7 @@
 
             <h1>Grails 101</h1>
 
-            <g:form mapping="subscribe" method="POST">
+            <g:form controller="subscribe" action="subscribe" method="POST">
                 <label><g:message code="onezeroone.email" default="Email"/></label>
                 <g:textField name="email"/>
 
