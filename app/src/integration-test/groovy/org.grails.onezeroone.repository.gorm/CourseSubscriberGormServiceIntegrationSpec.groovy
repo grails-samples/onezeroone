@@ -2,6 +2,7 @@ package org.grails.onezeroone.repository.gorm
 
 import grails.gorm.transactions.Rollback
 import grails.testing.mixin.integration.Integration
+import org.grails.onezeroone.CourseSubscriber
 import org.grails.onezeroone.SubscriptionDay
 import org.grails.onezeroone.entities.CourseSubscriberImpl
 import spock.lang.Specification
@@ -15,23 +16,36 @@ class CourseSubscriberGormServiceIntegrationSpec extends Specification {
 
     void 'test find all courseSubscribers by day'() {
         given: 'a few courseSubscribers'
-        courseSubscriberDataService.save('user1A@example.com', SubscriptionDay.ONE)
-        courseSubscriberDataService.save('user1B@example.com', SubscriptionDay.ONE)
-        courseSubscriberDataService.save('user2A@example.com', SubscriptionDay.TWO)
-        courseSubscriberDataService.save('user3A@example.com', SubscriptionDay.THREE)
-        courseSubscriberDataService.save('user4A@example.com', SubscriptionDay.FOUR)
-        courseSubscriberDataService.save('user5A@example.com', SubscriptionDay.FIVE)
-        courseSubscriberDataService.save('user6A@example.com', SubscriptionDay.SIX)
-        courseSubscriberDataService.save('finished@example.com', SubscriptionDay.FINISHED)
+        [dayOne, dayTwo, dayThree, dayFour, daySix, dayFinished].flatten().each { Map m ->
+            courseSubscriberDataService.save(m.email as String, m.day as SubscriptionDay)
+        }
 
-        when: 'finding all by day'
-        def result = courseSubscriberGormService.findAllByDay(SubscriptionDay.ONE)
+        when: 'finding all by day ONE'
+        List<CourseSubscriber> result = courseSubscriberGormService.findAllByDay(SubscriptionDay.ONE)
 
         then:
         result != null
-        result.size() == 2
-        result.email == ['user1A@example.com', 'user1B@example.com']
+        result.size() == dayOne.size()
+        result.email == dayOne*.email
         result.subscriptionDay.every { it == SubscriptionDay.ONE }
+
+        when: 'finding all by day TWO'
+        result = courseSubscriberGormService.findAllByDay(SubscriptionDay.TWO)
+
+        then:
+        result != null
+        result.size() == dayTwo.size()
+        result.email == dayTwo*.email
+        result.subscriptionDay.every { it == SubscriptionDay.TWO }
+
+
+        where:
+        dayOne = [[email: 'user1A@example.com', day: SubscriptionDay.ONE], [email: 'user1B@example.com', day: SubscriptionDay.ONE]]
+        dayTwo = [[email: 'user2A@example.com', day: SubscriptionDay.TWO]]
+        dayThree = [[email: 'user3A@example.com', day: SubscriptionDay.THREE]]
+        dayFour = [[email: 'user4A@example.com', day: SubscriptionDay.FOUR]]
+        daySix = [[email: 'user5A@example.com', day: SubscriptionDay.SIX]]
+        dayFinished = [[email: 'finished@example.com', day: SubscriptionDay.FINISHED]]
     }
 
     void 'move a list of courseSubscribers to another day'() {
