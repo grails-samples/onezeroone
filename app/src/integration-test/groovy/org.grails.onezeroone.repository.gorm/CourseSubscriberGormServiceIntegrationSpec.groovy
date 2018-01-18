@@ -36,10 +36,14 @@ class CourseSubscriberGormServiceIntegrationSpec extends Specification {
 
     void 'move a list of courseSubscribers to another day'() {
         given: 'a few courseSubscribers'
-        def day1A = CourseSubscriberGormEntityUtils.of(courseSubscriberDataService.save('user1A@example.com', SubscriptionDay.ONE))
-        def day1B = CourseSubscriberGormEntityUtils.of(courseSubscriberDataService.save('user1B@example.com', SubscriptionDay.ONE))
-        CourseSubscriberGormEntityUtils.of(courseSubscriberDataService.save('user2A@example.com', SubscriptionDay.TWO))
-        CourseSubscriberGormEntityUtils.of(courseSubscriberDataService.save('user3A@example.com', SubscriptionDay.THREE))
+        Closure save = { String  email, SubscriptionDay day ->
+            CourseSubscriberGormEntityUtils.of(courseSubscriberDataService.save(email, day))
+        }
+
+        CourseSubscriber day1A = save('user1A@example.com', SubscriptionDay.ONE)
+        CourseSubscriber day1B = save('user1B@example.com', SubscriptionDay.ONE)
+        save('user2A@example.com', SubscriptionDay.TWO)
+        save('user3A@example.com', SubscriptionDay.THREE)
 
         when: 'moving the courses from day ONE to day TWO'
         courseSubscriberGormService.moveToDay([day1A, day1B], SubscriptionDay.TWO)
