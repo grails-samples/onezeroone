@@ -68,7 +68,7 @@ class CourseSubscriberGormServiceIntegrationSpec extends Specification {
 
     void 'persist a courseSubscriber'() {
         given: 'a courseSubscriber'
-        def courseSubscriber = new CourseSubscriberImpl(email, subscriptionDay)
+        CourseSubscriber courseSubscriber = new CourseSubscriberImpl(email, subscriptionDay)
 
         when: 'persisting it'
         courseSubscriberGormService.save(courseSubscriber)
