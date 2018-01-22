@@ -22,7 +22,7 @@ class DailyEmailUseCaseService {
             if (!SubscriptionDay.hasFinished(day)) {
                 List<CourseSubscriber> subscribers = courseSubscriberRepository.findAllByDay(day)
                 if ( !subscribers ) {
-                    log.debug 'no {} email sent. No subscribers', day.name()
+                    log.debug 'no DAY {} email sent. No subscribers', day.name()
                     continue
                 }
                 Email email = emailComposer.compose(day)
