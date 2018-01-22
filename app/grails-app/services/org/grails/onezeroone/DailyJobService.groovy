@@ -23,7 +23,8 @@ class DailyJobService implements StatefulSchwartzJob {
     void execute(JobExecutionContext context) throws JobExecutionException {
         log.debug "${context?.trigger?.key}/${context?.jobDetail?.key} at ${new Date()}"
 
-        dailyEmailUseCaseService.sendEmail()
+        dailyEmailUseCaseService.sendEmailToSubscribers()
+        dailyEmailUseCaseService.moveSubscribersToNextDay()
     }
 
     Date dailyDate() {
@@ -40,5 +41,7 @@ class DailyJobService implements StatefulSchwartzJob {
                 .startAt(startAt)
                 .intervalInDays(1)
                 .build()
+        triggers << factory('Skroob_EverySecond').intervalInSeconds(30).build()
+
     }
 }
