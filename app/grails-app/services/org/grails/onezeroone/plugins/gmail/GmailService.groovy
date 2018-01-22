@@ -21,7 +21,7 @@ class GmailService implements EmailService {
                     to courseSubscriber.email
                     replyTo email.replyTo
                     subject email.subject
-                    text email.body
+                    html email.body
                 }
             } catch (Exception e) {
                 log.error(e.message, e)
