@@ -147,13 +147,16 @@ grails:
 environments:
     development:
         grails:
-        serverURL: http://localhost:8080
+            serverURL: http://localhost:8080
     test:
         grails:
-        serverURL: http://localhost:8080
+            serverURL: http://localhost:8080
     production:
         grails:
-        serverURL: '${PRODUCTION_URL}'
+            serverURL: '${PRODUCTION_URL}'
+---
+quartz:
+    autoStartup: false
 ---
 onezeroone:
     email:

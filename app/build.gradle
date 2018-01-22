@@ -10,6 +10,7 @@ buildscript {
         classpath "gradle.plugin.com.energizedwork:idea-gradle-plugins:1.4"
         classpath "com.github.pivotalservices:ya-cf-app-gradle-plugin:$cfAppVersion"
         classpath "org.grails.plugins:hibernate5:${gormVersion-".RELEASE"}"
+        classpath "com.agileorbit:schwartz:$schwartzVersion"
     }
 }
 
@@ -69,7 +70,10 @@ dependencies {
     runtime "com.h2database:h2"
     runtime "org.apache.tomcat:tomcat-jdbc"
     runtime 'mysql:mysql-connector-java:5.1.40'
+
+    compile "com.agileorbit:schwartz:$schwartzVersion"
 }
+
 
 bootRun {
     jvmArgs('-Dspring.output.ansi.enabled=always')
