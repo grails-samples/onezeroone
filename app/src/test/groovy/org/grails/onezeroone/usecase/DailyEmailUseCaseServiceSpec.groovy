@@ -23,10 +23,9 @@ class DailyEmailUseCaseServiceSpec extends Specification implements ServiceUnitT
         int expectedIterations = SubscriptionDay.values().size() - 1 // Substract FINISHED
 
         when: 'executing the service to send the templates'
-        service.sendEmail()
+        service.sendEmailToSubscribers()
 
         then:
         expectedIterations * service.emailService.send(*_)
-        expectedIterations * service.courseSubscriberRepository.moveToDay(*_)
     }
 }
