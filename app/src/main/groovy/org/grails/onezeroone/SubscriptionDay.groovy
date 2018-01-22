@@ -7,10 +7,9 @@ enum SubscriptionDay {
     ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, FINISHED
 
     static SubscriptionDay nextDay(SubscriptionDay day) {
-        day != FINISHED ? day.next() : null
-    }
-
-    static hasFinished(day) {
-        day == FINISHED
+        if ( day == FINISHED) {
+            return FINISHED
+        }
+        day.next()
     }
 }

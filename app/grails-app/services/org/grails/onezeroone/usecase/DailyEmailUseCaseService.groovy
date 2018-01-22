@@ -19,31 +19,41 @@ class DailyEmailUseCaseService {
 
     void sendEmailToSubscribers() {
         for (SubscriptionDay day : SubscriptionDay.values()) {
-            if (!SubscriptionDay.hasFinished(day)) {
-                List<CourseSubscriber> subscribers = courseSubscriberRepository.findAllByDay(day)
-                if ( !subscribers ) {
-                    log.debug 'no DAY {} email sent. No subscribers', day.name()
-                    continue
-                }
-                Email email = emailComposer.compose(day)
-
-                log.debug('sending {} email to {} subscribers', day.name(), subscribers.size())
-
-                emailService.send(subscribers, email)
+            if ( day == SubscriptionDay.FINISHED) {
+                continue
             }
+            List<CourseSubscriber> subscribers = courseSubscriberRepository.findAllByDay(day)
+            if ( !subscribers ) {
+                log.debug 'no DAY {} email sent. No subscribers', day.name()
+                continue
+            }
+            Email email = emailComposer.compose(day)
+
+            log.debug('sending {} email to {} subscribers', day.name(), subscribers.size())
+
+            emailService.send(subscribers, email)
+
         }
     }
 
     void moveSubscribersToNextDay() {
-        for (SubscriptionDay day : SubscriptionDay.values()) {
-            if (!SubscriptionDay.hasFinished(day)) {
-                List<CourseSubscriber> subscribers = courseSubscriberRepository.findAllByDay(day)
-                if ( !subscribers ) {
-                    log.debug 'no DAY {} subscribers', day.name()
-                    continue
-                }
-                courseSubscriberRepository.moveToDay(subscribers, SubscriptionDay.nextDay(day))
+        for ( SubscriptionDay day : SubscriptionDay.values().reverse() ) {
+            if ( day == SubscriptionDay.FINISHED) {
+                continue
             }
+            List<CourseSubscriber> subscribers = courseSubscriberRepository.findAllByDay(day)
+            if ( !subscribers ) {
+                log.debug 'no DAY {} subscribers', day.name()
+                continue
+            }
+            SubscriptionDay nextDay = SubscriptionDay.nextDay(day)
+            log.debug('moving {}  subscribers from {} to {}', subscribers.size(), day, nextDay)
+            courseSubscriberRepository.moveToDay(subscribers, nextDay)
         }
+    }
+
+    void sendDailyEmail() {
+        sendEmailToSubscribers()
+        moveSubscribersToNextDay()
     }
 }

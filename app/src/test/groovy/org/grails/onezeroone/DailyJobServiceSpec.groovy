@@ -21,7 +21,6 @@ class DailyJobServiceSpec extends HibernateSpec implements ServiceUnitTest<Daily
         service.execute(Mock(JobExecutionContext))
 
         then:
-        1 * service.dailyEmailUseCaseService.sendEmailToSubscribers()
-        1 * service.dailyEmailUseCaseService.moveSubscribersToNextDay()
+        1 * service.dailyEmailUseCaseService.sendDailyEmail()
     }
 }

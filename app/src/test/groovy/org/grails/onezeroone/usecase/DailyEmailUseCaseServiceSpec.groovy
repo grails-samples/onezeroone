@@ -1,6 +1,8 @@
 package org.grails.onezeroone.usecase
 
+import grails.events.annotation.Subscriber
 import grails.testing.services.ServiceUnitTest
+import org.grails.onezeroone.CourseSubscriber
 import org.grails.onezeroone.CourseSubscriberRepository
 import org.grails.onezeroone.EmailComposer
 import org.grails.onezeroone.EmailImpl
@@ -13,19 +15,27 @@ class DailyEmailUseCaseServiceSpec extends Specification implements ServiceUnitT
 
     void 'test the daily send email'() {
         given: 'mocked collaborators'
-        service.emailComposer = Stub(EmailComposer) {
+        service.emailComposer = Mock(EmailComposer) {
             compose(_) >> new EmailImpl()
         }
+
+        List<CourseSubscriber> dayOne = [new CourseSubscriberImpl(email: 'one@email.com')]
+        List<CourseSubscriber> dayTwo = [new CourseSubscriberImpl(email: 'two@email.com'), new CourseSubscriberImpl(email: 'three@email.com')]
         service.courseSubscriberRepository = Mock(CourseSubscriberRepository) {
-            findAllByDay(_) >> [new CourseSubscriberImpl(email: 'foo@email.com')]
+            findAllByDay(SubscriptionDay.ONE) >> dayOne
+            findAllByDay(SubscriptionDay.TWO) >> dayTwo
+            findAllByDay(_) >> []
         }
         service.emailService = Mock(EmailService)
-        int expectedIterations = SubscriptionDay.values().size() - 1 // Substract FINISHED
 
         when: 'executing the service to send the templates'
-        service.sendEmailToSubscribers()
+        service.sendDailyEmail()
 
         then:
-        expectedIterations * service.emailService.send(*_)
+        2 * service.emailService.send(*_)
+        1 * service.emailComposer.compose(SubscriptionDay.ONE)
+        1 * service.emailComposer.compose(SubscriptionDay.TWO)
+        1 * service.courseSubscriberRepository.moveToDay(dayOne, SubscriptionDay.TWO)
+        1 * service.courseSubscriberRepository.moveToDay(dayTwo, SubscriptionDay.THREE)
     }
 }

@@ -23,8 +23,7 @@ class DailyJobService implements StatefulSchwartzJob {
     void execute(JobExecutionContext context) throws JobExecutionException {
         log.debug "${context?.trigger?.key}/${context?.jobDetail?.key} at ${new Date()}"
 
-        dailyEmailUseCaseService.sendEmailToSubscribers()
-        dailyEmailUseCaseService.moveSubscribersToNextDay()
+        dailyEmailUseCaseService.sendDailyEmail()
     }
 
     Date dailyDate() {
